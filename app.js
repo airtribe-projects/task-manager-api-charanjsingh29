@@ -10,7 +10,6 @@ app.use('/tasks', TaskRouter);
 
 app.use((req, res, next) => {
     res.status(404).json({message: 'Not Found'})
-    next()
 })
 
 app.listen(port, (err) => {
