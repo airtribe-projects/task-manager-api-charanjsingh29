@@ -23,11 +23,11 @@ const taskSchema = Joi.object({
     }),
 });
 
-async function getAllTasks(req, res) {
+function getAllTasks(req, res) {
     return res.json(tasks.map(task => TaskResource(task)))
 }
 
-async function getSingleTask(req, res) {
+function getSingleTask(req, res) {
     const id = req.params.id;
     const task = tasks.find(task => task.id == id)
 
@@ -38,7 +38,7 @@ async function getSingleTask(req, res) {
     return res.json(TaskResource(task))
 }
 
-async function newTask(req, res) {
+function newTask(req, res) {
     const { error, value } = taskSchema.validate(req.body, { abortEarly: false });
 
     if (error) {
@@ -47,14 +47,14 @@ async function newTask(req, res) {
     }
     
     const task = value;
-    if(task.status == undefined) 
-        task.status = "pending"
+    if(task.completed == undefined) 
+        task.completed = false
     task.id = tasks.length + 1
     tasks.push(task);
     return res.status(201).json({success: true, message: 'Task created successfully', data: TaskResource(task)})
 }
 
-async function updateTask(req, res) {
+function updateTask(req, res) {
     const id = req.params.id;
     const task = tasks.find(task => task.id == id)
 
@@ -74,7 +74,7 @@ async function updateTask(req, res) {
     return res.json({success: true, message: 'Task updated successfully', data: TaskResource(task)})
 }
 
-async function deleteTask(req, res) {
+function deleteTask(req, res) {
     const id = req.params.id;
     const task = tasks.find(task => task.id == id)
 
