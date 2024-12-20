@@ -1,5 +1,5 @@
 const TaskResource = (task) => ({
-    id: task.id || task._id, // Support for MongoDB's _id
+    id: task.id,
     title: task.title,
     description: task.description || null,
     completed: task.completed || false,
